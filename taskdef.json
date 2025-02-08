@@ -85,6 +85,5 @@
         "operatingSystemFamily": "LINUX"
     },
     "registeredAt": "2025-02-04T16:26:43.519Z",
-    "registeredBy": "arn:aws:iam::774174128570:user/mkaneoya",
-    "enableFaultInjection": false
+    "registeredBy": "arn:aws:iam::774174128570:user/mkaneoya"
 }
