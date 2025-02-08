@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "ctn-cicd-hdon-cont",
-            "image": "IMAGE_1",
+            "image": "<IMAGE_1>",
             "cpu": 0,
             "portMappings": [
                 {
