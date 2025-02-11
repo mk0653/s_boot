@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注文管理</title>
+</head>
+<body>
+    <h1>注文管理システム</h1>
+
+    <h2>新しい注文を追加</h2>
+    <form action="/orders" method="post">
+        顧客名: <input type="text" name="customerName" required>
+        商品名: <input type="text" name="productName" required>
+        数量: <input type="number" name="quantity" required>
+        <button type="submit">追加</button>
+    </form>
+
+    <h2>注文一覧</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>顧客名</th>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>ステータス</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.customerName}"></td>
+            <td th:text="${order.productName}"></td>
+            <td th:text="${order.quantity}"></td>
+            <td th:text="${order.status}"></td>
+            <td>
+                <form th:action="@{/orders/{id}/status(id=${order.id})}" method="post">
+                    <select name="status">
+                        <option value="PENDING">PENDING</option>
+                        <option value="PROCESSING">PROCESSING</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                    </select>
+                    <button type="submit">更新</button>
+                </form>
+                <form th:action="@{/orders/{id}/delete(id=${order.id})}" method="post">
+                    <button type="submit">削除</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
