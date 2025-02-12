@@ -1,7 +1,0 @@
-com\example\demo\service\OrderService.class
-com\example\demo\model\Order.class
-com\example\demo\service\OrderServiceImpl.class
-com\example\demo\EcCatApplication.class
-com\example\demo\controller\OrderController.class
-com\example\demo\model\Order$OrderBuilder.class
-com\example\demo\repository\OrderRepository.class
