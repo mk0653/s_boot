@@ -29,6 +29,13 @@ public class OrderServiceTest {
 	@BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this); // Mockito の初期化
+        
+        // OrderRepositoryモックの振る舞いを設定
+        when(orderRepository.existsById(1L))
+            .thenReturn(true);
+
+        // deleteById(1L) が呼ばれても何もしないモック設定
+        doNothing().when(orderRepository).deleteById(1L);
     }
 	
 	@Test
@@ -70,8 +77,6 @@ public class OrderServiceTest {
 	}
     @Test
     void deleteOrder() {
-        doNothing().when(orderRepository).deleteById(1L);
-
         assertDoesNotThrow(() -> orderService.deleteOrder(1L));
     }
 	
