@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,4 +41,38 @@ public class OrderServiceTest {
         assertEquals("Tanaka", orders.get(0).getCustomerName());
 		
 	}
+	
+	@Test
+	void createOrder() throws Exception{
+		Order order = new Order(null, "Suzuki", "Phone", 2, "PENDING") ;
+        when(orderRepository.save(any(Order.class))).thenReturn(order);
+
+        Order result = orderService.createOrder("Suzuki", "Phone", 2);
+
+        assertNotNull(result);
+        assertEquals("Suzuki", result.getCustomerName());
+        assertEquals("Phone", result.getProductName());
+		
+	}
+	
+	@Test
+	void updateOrder() throws Exception{
+		Order order = new Order(null, "Suzuki", "Phone", 2, "PENDING") ;
+		when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+        when(orderRepository.save(any(Order.class))).thenReturn(order);
+
+        Order result = orderService.updateOrderStatus(1L,"COMPLETED");
+
+        assertNotNull(result);
+        assertEquals("Suzuki", result.getCustomerName());
+        assertEquals("Phone", result.getProductName());
+		
+	}
+    @Test
+    void deleteOrder() {
+        doNothing().when(orderRepository).deleteById(1L);
+
+        assertDoesNotThrow(() -> orderService.deleteOrder(1L));
+    }
+	
 }
