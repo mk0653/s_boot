@@ -75,9 +75,16 @@ public class OrderServiceTest {
         assertEquals("Phone", result.getProductName());
 		
 	}
-    @Test
-    void deleteOrder() {
-        assertDoesNotThrow(() -> orderService.deleteOrder(1L));
-    }
+	//削除メソッドのテストコード作成
+	@Test
+	void deleteOrder() throws Exception{
+		orderService.deleteOrder(1L);
+		verify(orderRepository, times(1)).deleteById(1L);
+	}
+	//存在しないIDを指定した場合のテストコード作成
+	@Test
+	void deleteOrderWithInvalidId() throws Exception{
+		assertThrows(Exception.class, () -> orderService.deleteOrder(2L));
+	}
 	
 }
