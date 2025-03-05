@@ -20,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAllOrders() {
     	logger.info("注文情報を取得します");
+    	//logger.info("注文情報を取得します");
         return orderRepository.findAll();
     }
 
