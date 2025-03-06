@@ -7,12 +7,7 @@ import org.slf4j.Marker;
 // @RequiredArgsConstructorを削除 - 手動でコンストラクタを定義するため
 public class CustomLogger {
     private final Logger logger;
-
-    // Lombokの@CustomLogアノテーションで使用される重要なコンストラクタ
-    public CustomLogger(Logger logger) {
-        this.logger = logger;
-    }
-
+    
     // スタックトレースを使用したコンストラクタ（手動で使用する場合用）
     public CustomLogger() {
         // スタックトレースから呼び出し元のクラス名を取得
@@ -24,6 +19,9 @@ public class CustomLogger {
     public CustomLogger(Class<?> clazz) {
         this.logger = LoggerFactory.getLogger(clazz);
     }
+    public static CustomLogger getLogger(Class<?> clazz) {
+		return new CustomLogger(clazz);
+	}
 
     // 名前を指定するコンストラクタ
     public CustomLogger(String name) {

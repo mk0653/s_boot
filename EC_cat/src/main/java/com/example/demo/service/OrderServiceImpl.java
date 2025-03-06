@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.annotation.CustomLog;
 import com.example.demo.model.Order;
 import com.example.demo.repository.OrderRepository;
 
+import lombok.CustomLog;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,8 +19,8 @@ public class OrderServiceImpl implements OrderService {
     
     @Override
     public List<Order> getAllOrders() {
-    	logger.info("注文情報を取得します");
-    	//logger.info("注文情報を取得します");
+    	//log.info("注文情報を取得します");
+    	log.info("注文情報を取得します");
         return orderRepository.findAll();
     }
 
