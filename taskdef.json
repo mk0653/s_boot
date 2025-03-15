@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:774174128570:task-definition/ctn-cicd-hdon-task:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:774174128570:task-definition/ctn-cicd-hdon-task:2",
     "containerDefinitions": [
         {
             "name": "ctn-cicd-hdon-cont",
@@ -32,13 +32,52 @@
                 },
                 "secretOptions": []
             },
-            "systemControls": []
+            "systemControls": [],
+            "dependsOn": [
+                {
+                    "containerName": "xray-daemon",
+                    "condition": "START"
+                }
+            ]
+        },
+        {
+            "name": "xray-daemon",
+            "image": "public.ecr.aws/xray/aws-xray-daemon:latest",
+            "cpu": 32,
+            "memoryReservation": 256,
+            "portMappings": [
+                {
+                    "containerPort": 2000,
+                    "hostPort": 2000,
+                    "protocol": "udp"
+                }
+            ],
+            "essential": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ctn-cicd-hdon-task",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-northeast-1",
+                    "awslogs-stream-prefix": "ecs-xray"
+                },
+                "secretOptions": []
+            },
+            "environment": [
+                {
+                    "name": "AWS_REGION",
+                    "value": "ap-northeast-1"
+                }
+            ]
         }
     ],
     "family": "ctn-cicd-hdon-task",
     "executionRoleArn": "arn:aws:iam::774174128570:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::774174128570:role/ecsTaskRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 2,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -68,6 +107,9 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
         }
     ],
     "placementConstraints": [],
@@ -83,8 +125,5 @@
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
-    },
-    "registeredAt": "2025-02-04T16:26:43.519Z",
-    "registeredBy": "arn:aws:iam::774174128570:user/mkaneoya"
-    
+    }
 }
