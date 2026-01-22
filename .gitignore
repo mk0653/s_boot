@@ -1,0 +1,18 @@
+/SillyTavern-Launcher/
+/EC_cat/
+
+# Spring Boot / Gradle
+build/
+bin/
+.gradle/
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+application-local.properties
